@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
+import sendDataToBackend from './api';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showProductInput, setShowProductInput] = useState(false);
+  const [product, setProduct] = useState('');
+  const [countriesWithCities, setCountriesWithCities] = useState({});
   const allCountries = ["USA", "Canada", "Australia", "India", "Brazil"];
 
   const handleCountryChange = (event) => {
@@ -13,8 +16,23 @@ const App = () => {
     }
   };
 
+  const handleCityChange = (country, city) => {
+    setCountriesWithCities({
+      ...countriesWithCities,
+      [country]: city,
+    });
+  };
+
+  const handleProductChange = (event) => {
+    setProduct(event.target.value);
+  };
+
   const handleSubmit = () => {
-    setShowSearch(true);
+    if (!showProductInput) {
+      setShowProductInput(true);
+    } else {
+      sendDataToBackend(countriesWithCities, product);
+    }
   };
 
   return (
@@ -30,17 +48,20 @@ const App = () => {
             ))}
           </select>
         </div>
-        <button className="submitButton" onClick={handleSubmit}>Submit</button>
-        {showSearch && (
+        {showProductInput && (
           <div className="searchBar">
             <h3>Product:</h3>
             <input
               type="text"
               placeholder="Enter a product"
               className="textField"
+              onChange={handleProductChange}
             />
           </div>
         )}
+        <button className="submitButton" onClick={handleSubmit}>
+          {showProductInput ? 'Submit' : 'Next'}
+        </button>
       </div>
       <div className="countryList">
         {countries.map((country, index) => (
@@ -50,6 +71,7 @@ const App = () => {
               type="text"
               placeholder="Enter city"
               className="textField"
+              onChange={(e) => handleCityChange(country, e.target.value)}
             />
           </div>
         ))}
