@@ -7,6 +7,7 @@ const App = () => {
   const [showProductInput, setShowProductInput] = useState(false);
   const [product, setProduct] = useState('');
   const [countriesWithCities, setCountriesWithCities] = useState({});
+  const [responseMessage, setResponseMessage] = useState('');
   const allCountries = ["USA", "Canada", "Australia", "India", "Brazil"];
 
   const handleCountryChange = (event) => {
@@ -27,11 +28,12 @@ const App = () => {
     setProduct(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!showProductInput) {
       setShowProductInput(true);
     } else {
-      sendDataToBackend(countriesWithCities, product);
+      const response = await sendDataToBackend(countriesWithCities, product);
+      setResponseMessage(response);
     }
   };
 
@@ -76,6 +78,11 @@ const App = () => {
           </div>
         ))}
       </div>
+      {responseMessage && (
+        <div className="responseBox">
+          <p>{responseMessage}</p>
+        </div>
+      )}
     </div>
   );
 };

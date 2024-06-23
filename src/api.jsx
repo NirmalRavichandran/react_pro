@@ -6,9 +6,10 @@ const sendDataToBackend = async (countriesWithCities, product) => {
       countriesWithCities,
       product,
     });
-    console.log('Data sent successfully:', response.data);
+    return response.data.message;
   } catch (error) {
     console.error('Error sending data to backend:', error);
+    return 'Error sending data to backend';
   }
 };
 

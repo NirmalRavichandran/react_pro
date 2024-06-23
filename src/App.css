@@ -133,3 +133,18 @@ body::-webkit-scrollbar {
   box-sizing: border-box;
 }
 
+.responseBox {
+  padding: 20px;
+  margin: 20px;
+  background: rgba(255, 255, 255, 0.8); 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: black;
+  font-family: cursive;
+  width: 50%;
+  max-width: 300px;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}

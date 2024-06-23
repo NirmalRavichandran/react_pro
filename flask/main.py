@@ -13,7 +13,10 @@ def submit():
     print('Received countries and cities:', countries_with_cities)
     print('Received product:', product)
 
-    return jsonify({'status': 'success', 'message': 'Data received successfully'})
+    response_message = 'Data received successfully: egornoghtrjhtnmklnmomhmnmohmn,pohmh pmonymnlpohomnmom kmnkmnohmfm;lg ' + ', '.join(
+        [f'{country}: {city}' for country, city in countries_with_cities.items()]) + f' with product {product}'
+
+    return jsonify({'status': 'success', 'message': response_message})
 
 if __name__ == '__main__':
     app.run(debug=True)
